@@ -1,7 +1,9 @@
 import React, {useState} from 'react'
 import authService from '../appwrite/auth'
+import service from '../appwrite/configuration.js'
 import {Link ,useNavigate} from 'react-router-dom'
 import {login} from '../store/authSlice'
+import { managePosts } from '../store/postSlice.js'
 import {Button, Input, Logo} from './index.js'
 import {useDispatch} from 'react-redux'
 import {useForm} from 'react-hook-form'
@@ -18,7 +20,18 @@ function Signup() {
             const userData = await authService.createAccount(data)
             if (userData) {
                 const userData = await authService.getCurrentUser()
-                if(userData) dispatch(login({userData}));
+                if(userData){
+                   dispatch(login({userData}));
+                   service.getPosts([])
+                        .then((res) => {
+                            // console.log("posts", res);
+                            dispatch(managePosts(res.documents));
+                        })
+                        .catch((err) => {
+                            dispatch(managePosts([]));
+                            console.log("Failed to fetch posts :: ", err.message);
+                        })
+                }
                 navigate("/");
             }
         } catch (error) {

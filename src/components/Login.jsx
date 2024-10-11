@@ -4,7 +4,9 @@ import { login as authLogin } from '../store/authSlice'
 import {Button, Input, Logo} from "./index"
 import {useDispatch} from "react-redux"
 import authService from "../appwrite/auth"
+import service from '../appwrite/configuration'
 import {useForm} from "react-hook-form"
+import { managePosts } from '../store/postSlice'
 
 function Login() {
     const navigate = useNavigate()
@@ -20,6 +22,15 @@ function Login() {
                 const userData = await authService.getCurrentUser();
                 if(userData){
                    dispatch(authLogin({userData}));
+                   service.getPosts([])
+                        .then((res) => {
+                            // console.log("posts", res);
+                            dispatch(managePosts(res.documents));
+                        })
+                        .catch((err) => {
+                            dispatch(managePosts([]));
+                            console.log("Failed to fetch posts :: ", err.message);
+                        })
                 }
                 navigate("/");
             }

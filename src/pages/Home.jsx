@@ -1,33 +1,36 @@
-import { useState, useEffect } from "react";
-import Service from "../appwrite/configuration";
-import authService from "../appwrite/auth";
+// import { useState, useEffect } from "react";
+// import service from "../appwrite/configuration";
+// import authService from "../appwrite/auth";
 import { Container, PostCard } from "../components";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-    const [posts, setPosts] = useState([]);
-    const status = useSelector((state) => state.auth.status);
+    // const [posts, setPosts] = useState([]);
+    // const status = useSelector((state) => state.auth.status);
     const userData = useSelector((state) => state.auth.userData);
+    let posts = useSelector((state) => state.post.postData);
+    posts = posts.filter(post => post.status==="active");
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if(status) {
-            Service.getPosts()
-                .then((res) => {
-                    if (res) {
-                        setPosts(res.documents)
-                    }
-                    else {
-                        setPosts([])
-                    }
-                })
-                .catch((err) => {
-                    console.log("Failed to fetch posts :: ", err.message);
-                    setPosts([]);
-                })
-        }
-    }, []);
+    // useEffect(() => {
+    //     if(status) {
+    //         service.getPosts()
+    //             .then((res) => {
+    //                 if (res) {
+    //                     // console.log(res);
+    //                     setPosts(res.documents)
+    //                 }
+    //                 else {
+    //                     setPosts([])
+    //                 }
+    //             })
+    //             .catch((err) => {
+    //                 console.log("Failed to fetch posts :: ", err.message);
+    //                 setPosts([]);
+    //             })
+    //     }
+    // }, []);
 
     if (posts.length === 0) {
         return (

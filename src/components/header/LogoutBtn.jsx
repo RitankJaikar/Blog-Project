@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux"
 import authService from "../../appwrite/auth"
 import { logout } from "../../store/authSlice"
 import { useNavigate } from "react-router-dom";
+import { managePosts } from "../../store/postSlice";
 
 
 export default function LogoutBtn() {
@@ -11,6 +12,7 @@ export default function LogoutBtn() {
         authService.logout()
             .then(() => {
                 dispatch(logout());
+                dispatch(managePosts([]));
                 navigate("/login"); // Redirect to login page after logout
             })
             .catch(err => {

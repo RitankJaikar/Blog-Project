@@ -2,21 +2,31 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import authService from './appwrite/auth';
+import service from './appwrite/configuration';
 import { login, logout } from './store/authSlice';
 import { Header, Footer } from './components';
 import { Outlet } from 'react-router-dom';
+import { managePosts } from './store/postSlice';
 
 function App() {
   //when fetching data from appwrite, it may take time
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
-  const authState = useSelector((state) => state.auth); // Listen to auth changes
 
   useEffect(() => {
     authService.getCurrentUser()
       .then((userData) => {
         if(userData) {
           dispatch(login({userData}))
+          service.getPosts([])
+            .then((res) => {
+              // console.log("posts", res.documents);
+              dispatch(managePosts(res.documents));
+            })
+            .catch((err) => {
+              dispatch(managePosts([]));
+              console.log("Failed to fetch posts :: ", err.message);
+            })
         }
         else {
           dispatch(logout());
