@@ -1,5 +1,7 @@
-export default function Logo({width = '100px'}) {
+import blogLogo from '../assets/logoblog.jpg';
+
+export default function Logo() {
     return (
-        <div>Logo</div>
+        <img className="w-12 rounded-full" src={blogLogo} alt="bloglogo" />
     )
 }

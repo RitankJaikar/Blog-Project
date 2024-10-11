@@ -27,10 +27,12 @@ export class AuthService {
                 await this.login({email, password});
             }
             else {
-                return userAccount;
+                console.log("AuthService :: createAccount :: error ::", "Failed to create account.");
             }
+            return userAccount;
         }
         catch (err) {
+            console.log("AuthService :: createAccount :: error ::", "Failed to create account.", err);
             throw err;
         }
     }
@@ -40,6 +42,7 @@ export class AuthService {
             return await this.account.createEmailPasswordSession(email, password);  //changed
         }
         catch (err) {
+            console.log("AuthService :: login :: error ::", err);
             throw err;
         }
     }
@@ -50,7 +53,6 @@ export class AuthService {
         }
         catch (err) {
             console.log("Appwrite service :: getCurrentUser :: error :: ", err);
-            //throw err;
         }
 
         return null;
@@ -62,7 +64,6 @@ export class AuthService {
         }
         catch (err) {
             console.log("Appwrite service :: logout :: error :: ", err);
-            //throw err;
         }
 
         return null;

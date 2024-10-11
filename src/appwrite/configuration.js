@@ -27,7 +27,7 @@ export class Service {
                     status,
                     userId
                 }
-            )
+            );
         }
         catch (err) {
             console.log("Appwrite service :: createPost :: error :: ", err);
@@ -46,7 +46,7 @@ export class Service {
                     featuredImage,
                     status
                 }
-            )
+            );
         }
         catch (err) {
             console.log("Appwrite service :: updatePost :: error :: ", err);
@@ -59,7 +59,7 @@ export class Service {
                 config.databaseId,
                 config.collectionId,
                 slug
-            )
+            );
             return true;
         }
         catch (err) {
@@ -70,31 +70,31 @@ export class Service {
 
     async getPost(slug) {
         try {
-            await this.databases.getDocument(
+            return await this.databases.getDocument(
                 config.databaseId,
                 config.collectionId,
                 slug
-            )
-            return true;
+            );
         }
         catch (err) {
             console.log("Appwrite service :: getPost :: error :: ", err);
-            return false;
+            //return false;
+            throw err;
         }
     }
 
     async getPosts(queries = [Query.equal("status", "active")]) {
         try {
-            await this.databases.listDocuments(
+            return await this.databases.listDocuments(
                 config.databaseId,
                 config.collectionId,
                 queries
-            )
-            return true;
+            );
         }
         catch (err) {
             console.log("Appwrite service :: getPosts :: error :: ", err);
-            return false;
+            //return false;
+            throw err;
         }
     }
 
@@ -106,7 +106,7 @@ export class Service {
                 config.bucketId,
                 ID.unique(),
                 file
-            )
+            );
         }
         catch (err) {
             console.log("Appwrite service :: uploadFile :: error :: ", err);
