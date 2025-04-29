@@ -27,6 +27,9 @@ export default function Post() {
     }, [slug, navigate]);
 
     const deletePost = () => {
+        const confirmed = window.confirm("Are you sure you want to delete this post?");
+        if (!confirmed) return;
+
         appwriteService.deletePost(post.$id).then((status) => {
             if (status) {
                 appwriteService.deleteFile(post.featuredImage);
@@ -40,32 +43,36 @@ export default function Post() {
     };
 
     return post ? (
-        <div className="py-8">
+        <div className="py-10 bg-gradient-to-b from-gray-700 via-gray-800 to-gray-700 min-h-screen text-gray-100">
             <Container>
-                <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
+                {/* Featured Image Section */}
+                <div className="w-full flex justify-center mb-6 relative rounded-xl overflow-hidden shadow-lg">
                     <img
                         src={appwriteService.getFilePreview(post.featuredImage)}
                         alt={post.title}
-                        className="rounded-xl"
+                        className="rounded-xl w-full max-h-[68vh] object-cover border border-gray-600"
                     />
 
+                    {/* Edit/Delete Buttons */}
                     {isAuthor && (
-                        <div className="absolute right-6 top-6">
+                        <div className="absolute right-4 top-4 flex gap-2">
                             <Link to={`/edit-post/${post.$id}`}>
-                                <Button bgColor="bg-green-500" className="mr-3">
-                                    Edit
-                                </Button>
+                                <Button bgColor="bg-green-600 hover:bg-green-700">Edit</Button>
                             </Link>
-                            <Button bgColor="bg-red-500" onClick={deletePost}>
+                            <Button bgColor="bg-red-600 hover:bg-red-700" onClick={deletePost}>
                                 Delete
                             </Button>
                         </div>
                     )}
                 </div>
-                <div className="w-full mb-6">
-                    <h1 className="text-2xl font-bold">{post.title}</h1>
-                </div>
-                <div className="browser-css">
+
+                {/* Title */}
+                <h1 className="text-3xl font-bold text-center mb-6 border-b border-gray-600 pb-4">
+                    {post.title}
+                </h1>
+
+                {/* Content */}
+                <div className="prose prose-invert max-w-4xl mx-auto text-gray-200">
                     {parse(post.content)}
                 </div>
             </Container>

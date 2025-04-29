@@ -1,7 +1,7 @@
-import blogLogo from '../assets/logoblog.jpg';
+import blogLogo from '../assets/logo1.svg';
 
 export default function Logo() {
     return (
-        <img className="w-12 rounded-full" src={blogLogo} alt="bloglogo" />
+        <img className="w-14" src={blogLogo} alt="Ink Nova" />
     )
 }

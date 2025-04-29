@@ -132,10 +132,10 @@ export class Service {
 
     getFilePreview(fileId) {
         try {
-            return this.bucket.getFilePreview(
-                config.bucketId,
-                fileId
-            )
+            const preview = this.bucket.getFileView(config.bucketId, fileId);
+            // change from getFilePreview to getFileView, since appwrite using Image transformations, which is paid
+            // console.log('File preview URL:', preview);
+            return preview;
         }
         catch (err) {
             console.log("Appwrite service :: getFilePreview :: error :: ", err);

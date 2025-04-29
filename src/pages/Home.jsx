@@ -10,7 +10,7 @@ export default function Home() {
     // const status = useSelector((state) => state.auth.status);
     const userData = useSelector((state) => state.auth.userData);
     let posts = useSelector((state) => state.post.postData);
-    posts = posts.filter(post => post.status==="active");
+    posts = posts.filter((post) => post.status === "active");
     const navigate = useNavigate();
 
     // useEffect(() => {
@@ -38,30 +38,35 @@ export default function Home() {
                 <Container>
                     <div className="flex flex-wrap">
                         <div className="p-2 w-full">
-                            <h1 className="text-2xl font-bold hover:text-gray-500 cursor-pointer" onClick={() => navigate("/login")}>
+                            <h1
+                                className="text-2xl font-bold hover:text-gray-500 cursor-pointer"
+                                onClick={() => navigate("/login")}
+                            >
                                 Login to read posts
                             </h1>
                         </div>
                     </div>
                 </Container>
             </div>
-        )
+        );
     }
-    
+
     return (
-        <div className='w-full py-8'>
-            {userData?.name && <h1 className="text-center text-2xl mb-4">Welcome {userData.name}</h1>}
+        <div className="w-full py-8">
+            {userData?.name && (
+                <h1 className="text-center text-3xl font-semibold text-white mb-8">
+                    Welcome, {userData.name}
+                </h1>
+            )}
             <Container>
-                <div className='flex flex-wrap'>
-                    {
-                        posts.map((post) => (
-                            <div key={post.$id} className='p-2 w-[33.3333%]'>
-                                <PostCard {...post} />
-                            </div>
-                        ))
-                    }
+                <div className="flex flex-wrap -mx-4">
+                    {posts.map((post) => (
+                        <div key={post.$id} className="w-full sm:w-1/2 lg:w-1/3 px-4 mb-6">
+                            <PostCard {...post} />
+                        </div>
+                    ))}
                 </div>
             </Container>
         </div>
-    )
+    );
 }
