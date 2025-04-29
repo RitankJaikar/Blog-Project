@@ -27,7 +27,7 @@ main.jsx: Entry point for the React app.
 ## 📌 Features:
 
 ✅ User Authentication – Signup, Login, Logout with secure session handling
-📝 Blog Management – Create, update, delete blog posts
+📝 Blog Management (CRUD) – Create, update, delete blog posts
 📚 All Blogs Page – View all posts (active & inactive)
 🏠 Home Page – View only active blog posts
 ✍️ Rich Text Editor – Integrated TinyMCE for blog content creation
@@ -35,6 +35,9 @@ main.jsx: Entry point for the React app.
 🔄 Global State Management – Efficient data handling with Redux Toolkit
 🔐 Secure Backend – Appwrite ensures safe auth and DB interactions
 🧩 Component-Driven Architecture – Clean, reusable, and modular code
+🌐 Deployed on:
+- Netlify for production hosting
+- GitHub for source control and collaboration
 
 ## ⚠️ Error Handling
 
