@@ -26,12 +26,20 @@ main.jsx: Entry point for the React app.
 
 ## 📌 Features:
 
-User authentication (Signup/Login/Logout)
-Add, edit, and delete blog posts
-All Blogs Page - View all blog posts, active/inactive both
-Home - View blog posts, only active
-Rich text editor integration (TinyMCE)
-Tailwind-based responsive UI
-Global state handling with Redux Toolkit
-Secure backend interactions with Appwrite
-Clean and modular component architecture
+✅ User Authentication – Signup, Login, Logout with secure session handling
+📝 Blog Management – Create, update, delete blog posts
+📚 All Blogs Page – View all posts (active & inactive)
+🏠 Home Page – View only active blog posts
+✍️ Rich Text Editor – Integrated TinyMCE for blog content creation
+📱 Responsive UI – Tailwind CSS-based design across all devices
+🔄 Global State Management – Efficient data handling with Redux Toolkit
+🔐 Secure Backend – Appwrite ensures safe auth and DB interactions
+🧩 Component-Driven Architecture – Clean, reusable, and modular code
+
+## ⚠️ Error Handling
+
+❌ Auth Errors – Displays validation messages (e.g., invalid credentials, weak passwords)
+🚫 Network/API Errors – Catches and displays issues from Appwrite services
+🔁 Form Validations – Built-in checks using React Hook Form (e.g., required fields, formats)
+🕵️ Edge Cases – Proper feedback when no posts are found or unauthorized actions attempted
+✅ Graceful Degradation – Ensures fallback UI or messages in case of unexpected issues
