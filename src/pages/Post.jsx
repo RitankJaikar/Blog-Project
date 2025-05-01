@@ -67,9 +67,14 @@ export default function Post() {
                 </div>
 
                 {/* Title */}
-                <h1 className="text-3xl font-bold text-center mb-6 border-b border-gray-600 pb-4">
+                <h1 className="text-3xl font-bold text-center mb-3">
                     {post.title}
                 </h1>
+
+                {/* Author Name */}
+                <p className="text-center text-gray-400 mb-6 pb-6 border-b border-gray-600">
+                    By <span className="font-semibold text-white">{post.authorName ? post.authorName : "Unknown Author"}</span>
+                </p>
 
                 {/* Content */}
                 <div className="prose prose-invert max-w-4xl mx-auto text-gray-200">

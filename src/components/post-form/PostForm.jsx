@@ -19,10 +19,14 @@ export default function PostForm({ post }) {
 
     const navigate = useNavigate();
     const userData = useSelector((state) => state.auth.userData);
+    console.log(userData);
     const dispatch = useDispatch();
 
     const submit = async (data) => {
         try {
+            // Retrieve the user's name
+            const authorName = userData?.name || "Unknown Author";
+
             const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
             if (post) {
                 if (file) {
@@ -37,6 +41,7 @@ export default function PostForm({ post }) {
                     dbPost = await appwriteService.updatePost(post.$id, {
                         ...data,
                         featuredImage: file ? file.$id : undefined,
+                        authorName, // Include the author's name
                     });
                 }
                 else {
@@ -49,7 +54,8 @@ export default function PostForm({ post }) {
                         dbPost = await appwriteService.createPost({
                             ...data,
                             featuredImage: file ? file.$id : postFeaturedImage,
-                            userId: userData.$id 
+                            userId: userData.$id,
+                            authorName, // Include the author's name
                         });
                     }
                 }
@@ -68,7 +74,7 @@ export default function PostForm({ post }) {
                 if (file) {
                     const fileId = file.$id;
                     data.featuredImage = fileId;
-                    const dbPost = await appwriteService.createPost({ ...data, userId: userData.$id });
+                    const dbPost = await appwriteService.createPost({ ...data, userId: userData.$id, authorName }); // Include the author's name
 
                     const res = await appwriteService.getPost([]);
                     if(res) {
